@@ -4,40 +4,33 @@ package mock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 public class SecurityCenterTest {
     /* 需求描述：
     编写SecurityCenter类的单元测试，单元测试switchOn方法，不依赖于DoorPanel的close的方法实现
     * */
 
-     private static class DoorPanelMock extends DoorPanel{
-       private boolean flag=false;
+     @Mock
+     private DoorPanel doorPanelMock;
 
-        public void close() {
-            flag = true;
-        }
-
-        public boolean isClosedBeCalled(){
-            return flag;
-        }
-
-    }
+     @InjectMocks
      private SecurityCenter securityCenter;
-     private DoorPanelMock doorPanelMock;
-
-    @BeforeEach
-    public void setUp() {
-         doorPanelMock = new DoorPanelMock();
-         securityCenter = new SecurityCenter(doorPanelMock);
-    }
 
     @Test
     public void shouldVerifyDoorIsClosed() {
         securityCenter.switchOn();
 
-        assertTrue(doorPanelMock.isClosedBeCalled());
+        verify(doorPanelMock, times(1)).close();
 
     }
 }

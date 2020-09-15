@@ -17,7 +17,6 @@ public class GradeServiceTest {
 
             return Arrays.asList(80.0,90.0,100.0); // 只是一个例子
         }
-
     }
     @Test
     public void shouldReturn90WhenCalculateStudentAverageGradeAndGradeIs80And90And100() {
