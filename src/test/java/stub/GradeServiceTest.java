@@ -15,14 +15,14 @@ public class GradeServiceTest {
 
         public List<Double> gradesFor(long studentId) {
 
-            return Arrays.asList(80.0, 90.0, 100.0); // 只是一个例子
+            return Arrays.asList(80.0,90.0,100.0); // 只是一个例子
         }
 
     }
     @Test
     public void shouldReturn90WhenCalculateStudentAverageGradeAndGradeIs80And90And100() {
-        GradeStubs gradeStubs = new GradeStubs();
-        List<Double> result = gradeStubs.gradesFor(161008);
+        GradeService gradeService = new GradeService(new GradeStubs());
+        double result = gradeService.calculateAverageGrades(161008);
         Assertions.assertEquals(90.0, result);
     }
 }
